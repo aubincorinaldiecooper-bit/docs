@@ -1,0 +1,18 @@
+---
+title: "Runs and receipts API"
+description: "Repository runs, evidence, approvals and receipts."
+---
+
+GNSIS 01 exposes a **different API** from the Panoptic visual runtime. Its public contract is run-oriented and supports coding-agent executions over connected repositories.
+
+```bash
+curl -sS -X POST https://api.gnsis.studio/v1/runs \
+  -H "Authorization: Bearer $GNSIS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: sample-run-001" \
+  -d '{"repository_id":"repo_abc123","instruction":"Harden authentication middleware"}'
+```
+
+Use `GET /v1/runs/{run_id}/events` to follow progress and `GET /v1/runs/{run_id}/receipt` for evidence and accounting. Approvals remain explicit and scope-gated.
+
+See the complete [GNSIS public API contract](https://github.com/aubincorinaldiecooper-bit/GNSISBACKEND/blob/main/docs/public_api.md) for scopes, pagination, error codes and related endpoints.

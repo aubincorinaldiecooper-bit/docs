@@ -1,0 +1,29 @@
+---
+title: "Python SDK"
+description: "Install and use the gnsis-visual-sdk host and planner clients."
+---
+
+The SDK source is [GNSISBACKEND/sdks/python](https://github.com/aubincorinaldiecooper-bit/GNSISBACKEND/tree/main/sdks/python).
+
+```bash
+pip install "gnsis-visual-sdk @ git+https://github.com/aubincorinaldiecooper-bit/GNSISBACKEND.git#subdirectory=sdks/python"
+```
+
+```python
+from gnsis_visual_sdk import VisualClient
+
+with VisualClient("https://visual.example", host_token) as host:
+    session = host.create_session()
+    try:
+        with VisualClient("https://visual.example", session.planner_token) as planner:
+            planner.set_task(session.session_id, "Find a visible control", ["click"])
+            proposed = planner.decide(session.session_id)
+            # Your trusted host independently checks whether the decision
+            # is current, permitted and approved before any action.
+    finally:
+        host.close_session(session.session_id)
+```
+
+The SDK also provides `FrameStream` for streaming existing trusted-host frames. It does not capture screens or execute actions.
+
+For a full frame streaming example see the [upstream Python SDK README](https://github.com/aubincorinaldiecooper-bit/GNSISBACKEND/blob/main/sdks/python/README.md).

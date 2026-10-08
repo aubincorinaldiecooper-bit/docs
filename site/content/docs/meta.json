@@ -1,0 +1,10 @@
+{
+  "title": "Developer documentation",
+  "pages": [
+    "index",
+    "panoptic",
+    "api-reference",
+    "gnsis-01",
+    "resources"
+  ]
+}
