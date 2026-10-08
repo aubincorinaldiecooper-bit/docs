@@ -1,0 +1,31 @@
+name: Deploy GNSIS documentation
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["GNSIS documentation CI"]
+    types: [completed]
+    branches: [main]
+jobs:
+  deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Coolify configuration
+        env:
+          COOLIFY_URL: ${{ secrets.COOLIFY_URL }}
+          COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
+          COOLIFY_DOCS_APPLICATION_UUID: ${{ secrets.COOLIFY_DOCS_APPLICATION_UUID }}
+        run: |
+          test -n "$COOLIFY_URL" || { echo "Missing COOLIFY_URL"; exit 1; }
+          test -n "$COOLIFY_API_TOKEN" || { echo "Missing COOLIFY_API_TOKEN"; exit 1; }
+          test -n "$COOLIFY_DOCS_APPLICATION_UUID" || { echo "Missing COOLIFY_DOCS_APPLICATION_UUID"; exit 1; }
+      - name: Trigger Coolify deployment
+        env:
+          COOLIFY_URL: ${{ secrets.COOLIFY_URL }}
+          COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
+          COOLIFY_DOCS_APPLICATION_UUID: ${{ secrets.COOLIFY_DOCS_APPLICATION_UUID }}
+        run: |
+          curl -fsS --retry 3 --retry-delay 2 -X POST "${COOLIFY_URL%/}/api/v1/deploy" \
+            -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "$(printf '{"uuid":"%s","force":false}' "$COOLIFY_DOCS_APPLICATION_UUID")"

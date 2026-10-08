@@ -1,0 +1,26 @@
+name: GNSIS documentation CI
+on:
+  pull_request:
+    paths: ['site/**', '.github/workflows/docs-ci.yml']
+  push:
+    branches: [main]
+    paths: ['site/**', '.github/workflows/docs-ci.yml']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run test:docs
+      - name: Verify API contract against source routes
+        run: |
+          curl -fsSL --retry 3 https://raw.githubusercontent.com/aubincorinaldiecooper-bit/GNSISBACKEND/main/runtime/gnsis_runtime/gnsis_runtime/visual/api.py -o /tmp/panoptic-api.py
+          node scripts/verify-api-routes.mjs /tmp/panoptic-api.py
+      - run: npm run build
+      - run: npm run typecheck
