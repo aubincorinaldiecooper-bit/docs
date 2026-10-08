@@ -32,10 +32,10 @@ Open http://localhost:3000/docs. Fumadocs creates the `.source` folder automatic
 
 Create a **new application** from GitHub repo `aubincorinaldiecooper-bit/docs` with root/base directory `/site`. Build with Dockerfile `site/Dockerfile` (or `Dockerfile` relative to `/site`), expose port `3000`, and assign custom domain `https://docs.gnsis.studio`. Validate `/docs`, `/llms.txt`, `/llms-full.txt` and an OpenAPI endpoint after deployment.
 
-The separate deploy workflow triggers on commits to `main`. Required **repository secrets in this docs repo**:
+The separate deploy workflow triggers after the documentation CI workflow succeeds on `main`, or by manual dispatch. Required **repository secrets in this docs repo**:
 
 - `COOLIFY_URL` — self-hosted Coolify base URL.
-- `COOLIFY_TOKEN` — token with deploy access.
+- `COOLIFY_API_TOKEN` — token with deploy access.
 - `COOLIFY_DOCS_APPLICATION_UUID` — UUID of the dedicated docs app; not the frontend/backend UUID.
 
 The workflow triggers only the specific docs UUID using `POST /api/v1/deploy`. Existing GNSIS services must not be redeployed or modified by these changes.
