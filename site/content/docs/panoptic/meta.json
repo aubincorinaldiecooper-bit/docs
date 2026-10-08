@@ -1,0 +1,12 @@
+{
+  "title": "Panoptic",
+  "pages": [
+    "introduction",
+    "quickstart",
+    "authentication",
+    "python",
+    "typescript",
+    "mcp",
+    "architecture"
+  ]
+}
