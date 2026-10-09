@@ -1,0 +1,31 @@
+---
+title: "GNSIS 01 perception and runtime"
+description: "GNSIS 01's always-on realtime see, hear, respond and speak runtime."
+---
+
+# GNSIS 01: always-on perception
+
+GNSIS 01 is a realtime system designed to maintain ongoing perception rather than behaving as a sequence of isolated screenshot requests. Its runtime accepts live audio and visual input, responds in real time, and is designed to continue perceiving while speech is being generated. The broader architecture calls for memory across time and sessions.
+
+GNSIS 01 is a **separate project from Panoptic**. Panoptic has its own visual-perception API and integration surface. Do not use Panoptic's API documentation as the source of truth for GNSIS 01's runtime, or assume that implementation or deployment changes in one project apply to the other.
+
+## Runtime implementation
+
+The backend's [realtime runtime guide](https://github.com/aubincorinaldiecooper-bit/GNSISBACKEND/blob/main/docs/live_runtime.md) identifies these implementation areas:
+
+- `runtime/gnsis_runtime/` — realtime server, duplex WebSocket, screen/camera transport, native tools, and tests.
+- `runtime/configs/gnsis-voice.yaml` — production realtime model configuration.
+- `modal/gnsis_voice.py` — GPU runtime deployment definition.
+- `runtime/PROVENANCE.md` — runtime source and licensing provenance.
+
+The backend's [implementation brief](https://github.com/aubincorinaldiecooper-bit/GNSISBACKEND/blob/main/AGENTS.md) describes the intended experience as one continuous intelligence that sees and hears continuously, speaks while continuing to perceive, remains interruptible, and remembers across time and sessions.
+
+## Model and implementation status
+
+Treat the backend source and deployed configuration as authoritative for the exact model/checkpoint wiring. The runtime guide currently lists a GNSIS Thinker checkpoint and Gander Talker assets; that naming alone does not establish that every perception and speech component is a Gander checkpoint. Do not claim a more specific model lineage than the backend verifies.
+
+The intended architecture and the shipped implementation are not automatically identical. Verify current runtime code, model configuration, tests, and deployment before describing a capability as fully implemented or live.
+
+## What this page does not describe
+
+This page is about GNSIS 01's own realtime runtime. It does not document Panoptic's API, SDKs, MCP adapter, or visual sessions. Those belong to the separate [Panoptic documentation](/docs/panoptic/introduction).

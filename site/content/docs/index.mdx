@@ -1,20 +1,31 @@
 ---
 title: "Developer documentation"
-description: "The API, SDK and MCP documentation for Panoptic and GNSIS 01."
+description: "Separate developer documentation for Panoptic and GNSIS 01."
 ---
 
 # Build with GNSIS
 
-**Panoptic** gives AI agents persistent visual perception over a stream owned by a trusted host. It understands what is on screen, what changed, and can propose one bounded next action. It does not capture screens or execute actions.
+This portal documents **two separate projects: Panoptic and GNSIS 01**. They have distinct product boundaries and APIs. Neither is a renamed version of the other, and neither should be described as the other's underlying layer.
 
-**GNSIS 01** exposes a separate API for repository coding runs, execution evidence and approvals.
+## Panoptic
 
-## Get started
+**Panoptic** is its own visual-perception API and integration project. It consumes an ongoing visual stream supplied by a trusted host and can describe the current scene, changes, and bounded action proposals. The trusted host owns capture, permissions, and execution.
 
+- [Panoptic overview](/docs/panoptic/introduction)
 - [Panoptic quickstart](/docs/panoptic/quickstart)
 - [Python SDK](/docs/panoptic/python) and [TypeScript SDK](/docs/panoptic/typescript)
-- [MCP adapter](/docs/panoptic/mcp) for AI agents
-- [Panoptic API reference](/docs/api-reference) with interactive requests
-- [GNSIS 01 runs and receipts](/docs/gnsis-01/runs)
+- [Panoptic MCP adapter](/docs/panoptic/mcp)
+- [Panoptic API reference](/docs/api-reference)
 
-Access is by request at https://gnsis.studio/developers/panoptic.
+## GNSIS 01
+
+**GNSIS 01 is the always-on realtime perception system.** Its runtime is designed to continuously see and hear, respond in real time, speak while perception continues, and support memory across time and sessions. It is a separate project from Panoptic.
+
+GNSIS 01 also exposes a distinct run-oriented API for repository coding runs, execution evidence, and approvals.
+
+- [GNSIS 01 perception and runtime](/docs/gnsis-01/perception)
+- [GNSIS 01 runs and receipts API](/docs/gnsis-01/runs)
+
+## Keep the boundary clear
+
+Panoptic's visual API and GNSIS 01's always-on realtime runtime are separate systems. Shared vocabulary such as “perception” does not make them one product, and changes to one project must not be assumed to change the other.

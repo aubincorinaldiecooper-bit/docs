@@ -1,9 +1,11 @@
 ---
 title: "Runs and receipts API"
-description: "Repository runs, evidence, approvals and receipts."
+description: "The separate GNSIS 01 API for repository runs, evidence, approvals and receipts."
 ---
 
-GNSIS 01 exposes a **different API** from the Panoptic visual runtime. Its public contract is run-oriented and supports coding-agent executions over connected repositories.
+GNSIS 01 is the **always-on realtime perception system** described in the [perception and runtime overview](/docs/gnsis-01/perception). This page covers an additional, distinct GNSIS 01 capability: its run-oriented API for coding-agent executions over connected repositories.
+
+This API is separate from Panoptic's visual-perception API. Do not treat Panoptic and GNSIS 01 as components of one product or infer that their sessions, credentials, or execution flows are interchangeable.
 
 ```bash
 curl -sS -X POST https://api.gnsis.studio/v1/runs \
